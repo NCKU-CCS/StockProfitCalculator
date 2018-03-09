@@ -61,11 +61,10 @@ class StockTrader:
         if self.is_shorting_stock:
             raise StockNumExceedError("You cannot sell short stocks when you've already sell short one")
         elif self.is_holding_stock:
-            self.accumulated_profit = stock_price - self.holding_price
+            self.accumulated_profit += stock_price - self.holding_price
             self.holding_price = None
         else:
             self.sell_short_price = stock_price
-
 
 
 def check_stock_actions_length(stocks_df: pd.DataFrame, actions: List[int]) -> bool:
