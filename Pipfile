@@ -8,8 +8,10 @@ name = "pypi"
 [packages]
 
 pandas = "*"
+pytest-cov = "*"
 
 
 [dev-packages]
 
 pytest = "*"
+pytest-cov = "*"
