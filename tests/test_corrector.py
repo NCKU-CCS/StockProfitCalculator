@@ -1,19 +1,24 @@
 import pytest
 import pandas as pd
 
-from corrector import calculate_profit, InvalidActionError, StockNumExceedError
+from corrector import (
+    calculate_profit, check_stock_actions_length,
+    InvalidActionError, StockNumExceedError, InvalidActionNumError
+)
+
+
+@pytest.fixture(scope='function')
+def stocks():
+    FEATURE_NAMES = ('open', 'high', 'low', 'close')
+    return pd.read_csv('tests/testing_data.csv', names=FEATURE_NAMES)
+
+
+@pytest.fixture(scope='function')
+def init_actions(stocks):
+    return [0] * (len(stocks) - 1)
 
 
 class TestCalculateProfit:
-    @pytest.fixture(scope='function')
-    def stocks(self):
-        FEATURE_NAMES = ('open', 'high', 'low', 'close')
-        return pd.read_csv('tests/testing_data.csv', names=FEATURE_NAMES)
-
-    @pytest.fixture(scope='function')
-    def init_actions(self, stocks):
-        return [0] * (len(stocks) - 1)
-
     def test_buy_and_hold(self, stocks, init_actions):
         actions = init_actions
         actions[0] = 1
@@ -56,3 +61,14 @@ class TestCalculateProfit:
             profit = calculate_profit(stocks, actions)
 
         assert err_info.value.args[0] == 'Invalid Action'
+
+
+class TestCheckStockActionsLength:
+    def test_valid_length(self, stocks, init_actions):
+        assert check_stock_actions_length(stocks, init_actions) is True
+
+    def test_valid_length(self, stocks, init_actions):
+        actions = init_actions
+        actions.append(0)
+
+        assert check_stock_actions_length(stocks, init_actions) is False

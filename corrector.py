@@ -20,6 +20,10 @@ class StockNumExceedError(Exception):
     pass
 
 
+class InvalidActionNumError(Exception):
+    pass
+
+
 class StockTrader:
     def __init__(self):
         self.accumulated_profit = 0
@@ -63,6 +67,13 @@ class StockTrader:
             self.sell_short_price = stock_price
 
 
+
+def check_stock_actions_length(stocks_df: pd.DataFrame, actions: List[int]) -> bool:
+    if len(stocks_df) != (len(actions) + 1):
+        return False
+    return True
+
+
 def calculate_profit(stocks_df: pd.DataFrame, actions: List[int]) -> float:
     stock_trader = StockTrader()
 
@@ -80,6 +91,7 @@ def calculate_profit(stocks_df: pd.DataFrame, actions: List[int]) -> float:
             stock_trader.buy(stock['close'])
 
     return stock_trader.accumulated_profit
+
 
 
 if __name__ == "__main__":
@@ -102,10 +114,8 @@ if __name__ == "__main__":
             action = int(line.strip())
             actions.append(action)
 
-    # Check number of actions
-    if len(stocks_df) != (len(actions) + 1):
-        sys.stderr.write('Invalid number of actions\n')
-        sys.exit()
+    if not check_stock_actions_length(stocks_df, actions):
+        raise InvalidActionNumError('Invalid number of actions')
 
     profit = calculate_profit(stocks_df, actions)
     print(profit)
