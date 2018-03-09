@@ -16,10 +16,9 @@ pipenv install
 pipenv shell
 ```
 
-
 ## Usage
 ```sh
-python corrector.py [-h] stock action
+python profit_calculator.py [-h] stock action
 ```
 
 - stock: Input stock file
