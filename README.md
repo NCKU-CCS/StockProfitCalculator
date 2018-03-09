@@ -25,6 +25,17 @@ python corrector.py [-h] stock action
 - stock: Input stock file
 - action: Input action file
 
+## Testing
+
+### Instal Testing Dependency
+```sh
+pipenv install --dev
+```
+
+### Run Test
+```sh
+pytest
+```
 
 ## AUTHORS
 [Lee-W](https://github.com/Lee-W/)
