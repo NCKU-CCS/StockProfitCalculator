@@ -80,8 +80,6 @@ def calculate_profit(stocks_df: pd.DataFrame, actions: List[int]) -> float:
     stocks_df.drop(0, inplace=True)
     for (_, stock), action in zip(stocks_df.iterrows(), actions):
         stock_trader.perform_action(action, stock['open'])
-        if action:
-            print(action)
 
     if stock is not None:
         if stock_trader.is_holding_stock:
