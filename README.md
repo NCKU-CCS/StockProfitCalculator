@@ -3,17 +3,18 @@
 DSAI 2018 HW1 corrector
 
 ## Prerequisite
-- Python 3.6
-- [pipenv](http://pipenv.org)
+- Python 3.9
+- [poetry](https://python-poetry.org)
 
 ### Install Dependency
 ```sh
-pipenv install
+poetry env use python
+poetry install
 ```
 
 ### Start Virtual Environment
 ```sh
-pipenv shell
+poetry shell
 ```
 
 ## Usage
@@ -26,10 +27,6 @@ python profit_calculator.py [-h] stock action
 
 ## Testing
 
-### Instal Testing Dependency
-```sh
-pipenv install --dev
-```
 
 ### Run Test
 ```sh
